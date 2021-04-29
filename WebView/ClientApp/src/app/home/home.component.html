@@ -1,0 +1,155 @@
+<h1>Hello, world!</h1>
+<p>Welcome to your new single-page application, built with:</p>
+<ul>
+  <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
+  <li><a href='https://angular.io/'>Angular</a> and <a href='http://www.typescriptlang.org/'>TypeScript</a> for client-side code</li>
+  <li><a href='http://getbootstrap.com/'>Bootstrap</a> for layout and styling</li>
+</ul>
+<p>To help you get started, we've also set up:</p>
+<ul>
+  <li><strong>Client-side navigation</strong>. For example, click <em>Counter</em> then <em>Back</em> to return here.</li>
+  <li><strong>Angular CLI integration</strong>. In development mode, there's no need to run <code>ng serve</code>. It runs in the background automatically, so your client-side resources are dynamically built on demand and the page refreshes when you modify any file.</li>
+  <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and your <code>dotnet publish</code> configuration automatically invokes <code>ng build</code> to produce minified, ahead-of-time compiled JavaScript files.</li>
+</ul>
+<p>The <code>ClientApp</code> subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any <code>ng</code> command (e.g., <code>ng test</code>), or use <code>npm</code> to install extra packages into it.</p>
+<p>
+  <ngx-graph
+  #graph
+  class="chart-container"
+  [draggingEnabled]="false"
+  [view]="[1600, 400]"
+  [curve]="curve"
+  [layout]="layout"
+  [links]="[
+    {
+      id: 'a',
+      source: '1',
+      target: '2',
+      label: 'is parent of'
+    }, {
+      id: 'b',
+      source: '1',
+      target: '3',
+      label: 'custom label'
+    }, {
+      id: 'c',
+      source: '2',
+      target: '4',
+      label: 'custom label'
+    }, {
+      id: 'd',
+      source: '3',
+      target: '4',
+      label: 'custom label'
+    }, {
+      id: 'e',
+      source: '3',
+      target: '5',
+      label: 'custom label'
+    }, {
+      id: 'f',
+      source: '4',
+      target: '6',
+      label: 'custom label'
+    }, {
+      id: 'g',
+      source: '5',
+      target: '6',
+      label: 'custom label'
+    }, {
+      id: 'h',
+      source: '6',
+      target: '7',
+      label: 'custom label'
+    }, {
+      id: 'i',
+      source: '6',
+      target: '8',
+      label: 'custom label'
+    }
+  ]"
+  [nodes]="[
+    {
+      id: '1',
+      label: 'Document sensible',
+      shape: 'file'
+    }, {
+      id: '2',
+      label: 'Département légal',
+      shape: 'legal'
+    }, {
+      id: '3',
+      label: 'Analyse des données',
+      shape: 'grad'
+    }, {
+      id: '4',
+      label: 'Requis de sécurité',
+      shape: 'shield'
+    }, {
+      id: '5',
+      label: 'Requis de transformation',
+      shape: 'gear'
+    }, {
+      id: '6',
+      label: 'Sommaire des livrables',
+      shape: 'clip'
+    }, {
+      id: '7',
+      label: 'Approbation',
+      shape: 'approve'
+    }, {
+      id: '8',
+      label: 'Package transform',
+      shape: 'file'
+    }
+  ]"
+>
+  <ng-template #nodeTemplate let-node>
+      <!-- <svg xmlns="http://www.w3.org/2000/svg" [attr.viewBox]="node.shape | nameToViewbox" width="150" height="300">
+          <g (click)="click(node.shape)" [innerHTML]="node.shape | nameToSvg"></g>
+          <foreignObject x="0" y="650" width="100%" height="60%">
+              <div style="border-width: 2px; border-color: black;">
+              <xhtml:span style="font-size: 120px;">{{node.label}}</xhtml:span>
+            </div>
+          </foreignObject>
+      </svg> -->
+      <svg:g class="node" >
+          <svg:rect
+            [attr.width]="node.dimension.width + (node.dimension.height * .8) + 10"
+            [attr.height]="node.dimension.height + 10"
+            [attr.fill]="node.data.color"
+            style="stroke:black;stroke-width:5;opacity:1"
+            rx="20" ry="20"
+          />
+          <svg:text alignment-baseline="central" [attr.x]="(node.dimension.height * .8) + 10" [attr.y]="node.dimension.height / 2">
+            {{node.label}}
+          </svg:text>
+         <svg [attr.viewBox]="node.shape | nameToViewbox" [attr.x]="8" [attr.y]="4" [attr.width]="node.dimension.height * .8" [attr.height]="node.dimension.height * .8">
+           <g (click)="click(node.shape)" [innerHTML]="node.shape | nameToSvg"></g>
+         </svg>
+        </svg:g>
+  </ng-template>
+
+  <!-- <ng-template #defsTemplate>
+    <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="4" orient="auto">
+      <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
+    </svg:marker>
+  </ng-template>
+   -->
+  <!-- <ng-template #linkTemplate let-link>
+    <svg:g class="edge">
+      <svg:path class="line" stroke-width="6" marker-end="url(#arrow)"></svg:path>
+      <svg:text class="edge-label" text-anchor="middle">
+        <textPath
+          class="text-path"
+          [attr.href]="'#' + link.id"
+          [style.dominant-baseline]="link.dominantBaseline"
+          startOffset="50%"
+        >
+          {{link.label}}
+        </textPath>
+      </svg:text>
+    </svg:g>
+  </ng-template> -->
+</ngx-graph>
+</p>
